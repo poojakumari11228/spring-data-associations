@@ -48,4 +48,8 @@ public class Mapper {
                 .collect(Collectors.toList());
     }
 
+    public static Comment convertCommentDtoToComment(CommentDto commentDto, Post post){
+        return new Comment(commentDto.getId(), commentDto.getName(), commentDto.getText(), post);
+    }
+
 }
