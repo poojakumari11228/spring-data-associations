@@ -5,8 +5,8 @@
 - Spring Data - JPA
 - Association - OneTOMany & ManyToOne
 - Docker
-- Fetch Types
-- Lazy/Eager Fetch
+- Cascade
+- Lazy/Eager Fetch Types
 - Filter
 
 
