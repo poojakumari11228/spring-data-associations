@@ -36,7 +36,7 @@ public class Mapper {
 
     }
 
-    private static List<CommentDto> convertCommentListToCommentDtoList(List<Comment> comments) {
+    public static List<CommentDto> convertCommentListToCommentDtoList(List<Comment> comments) {
         return comments.stream()
                 .map(x-> new CommentDto(x.getId(), x.getName(), x.getText(), x.getPost().getId()))
                 .collect(Collectors.toList());
@@ -50,6 +50,10 @@ public class Mapper {
 
     public static Comment convertCommentDtoToComment(CommentDto commentDto, Post post){
         return new Comment(commentDto.getId(), commentDto.getName(), commentDto.getText(), post);
+    }
+
+    public static CommentDto convertCommentToCommentDto(Comment comments) {
+        return new CommentDto(comments.getId(), comments.getName(), comments.getText(), comments.getPost().getId());
     }
 
 }

@@ -1,8 +1,10 @@
 package com.lab.lab.controller;
 
+import com.lab.lab.dto.CommentDto;
 import com.lab.lab.dto.PostDto;
 import com.lab.lab.dto.UserDto;
 import com.lab.lab.dto.UserDtoSimple;
+import com.lab.lab.entity.Comment;
 import com.lab.lab.entity.User;
 import com.lab.lab.service.PostService;
 import com.lab.lab.service.UserService;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,7 +30,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
 
     @GetMapping
     public List<UserDto> getUsers() {
@@ -58,6 +60,15 @@ public class UserController {
         userService.deleteById(id);
     }
 
+    @GetMapping("/posts/filter")
+    public List<UserDto> getUsersWithPostTitle(@RequestParam String title) {
+        return userService.findUsersWithPostTitle(title);
+    }
+
+    @GetMapping("/{uid}/posts/{pid}/comments/{cid}")
+    public CommentDto getUsersPost(@PathVariable long uid, @PathVariable long pid, @PathVariable long cid) {
+        return userService.getUserPostComentsByid(uid, pid, cid);
+    }
 
 
 }

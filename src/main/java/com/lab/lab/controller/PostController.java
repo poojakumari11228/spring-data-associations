@@ -43,4 +43,10 @@ public class PostController {
         postService.updateById(id, postDto);
     }
 
+    @GetMapping("/filter")
+    public List<PostDto> getAllPostsWithTitle(@RequestParam String title){
+        return postService.findAllWithTitle(title);
+    }
+
+
 }

@@ -12,4 +12,6 @@ public interface PostService {
     void deleteById(long id);
 
     void updateById(long id, PostDto postDto);
+
+    List<PostDto> findAllWithTitle(String title);
 }

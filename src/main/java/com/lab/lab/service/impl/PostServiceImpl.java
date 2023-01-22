@@ -59,4 +59,10 @@ public class PostServiceImpl implements PostService {
             postRepo.save(updatePost);
         }
     }
+
+    @Override
+    public List<PostDto> findAllWithTitle(String title) {
+        System.out.println("***** "+ title);
+        return Mapper.convertPostListToPostDtoList(postRepo.findAllByTitle(title));
+    }
 }

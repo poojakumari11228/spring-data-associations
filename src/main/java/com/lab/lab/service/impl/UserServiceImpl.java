@@ -1,11 +1,15 @@
 package com.lab.lab.service.impl;
 
-//import com.lab.lab.Util.ListMapper;
+
 import com.lab.lab.Util.Mapper;
+import com.lab.lab.dto.CommentDto;
 import com.lab.lab.dto.PostDto;
 import com.lab.lab.dto.UserDto;
 import com.lab.lab.dto.UserDtoSimple;
+import com.lab.lab.entity.Comment;
+import com.lab.lab.entity.Post;
 import com.lab.lab.entity.User;
+import com.lab.lab.repo.CommentRepo;
 import com.lab.lab.repo.UserRepo;
 import com.lab.lab.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -13,7 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,6 +27,8 @@ public class UserServiceImpl implements UserService {
     UserRepo userRepo;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    private CommentRepo commentRepo;
 
     @Override
     public List<UserDto> findUsers() {
@@ -31,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findUserById(long id) {
-        return modelMapper.map(userRepo.findById(id).get(),new UserDto().getClass());
+        return modelMapper.map(userRepo.findById(id).get(), new UserDto().getClass());
     }
 
     @Override
@@ -55,5 +62,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(long id) {
         userRepo.deleteById(id);
+    }
+
+    @Override
+    public List<UserDto> findUsersWithPostTitle(String title) {
+        List<User> user = userRepo.findAllByPostsTitle(title);
+        return Mapper.convertUserListToUserDtoList(user);
+    }
+
+    @Override
+    public CommentDto getUserPostComentsByid(long uid, long pid, long cid) {
+       Optional<Comment> comment = commentRepo.findByIdAndPostIdAndPostUserId(cid, pid, uid);
+       return Mapper.convertCommentToCommentDto(comment.orElse(new Comment()));
+
     }
 }

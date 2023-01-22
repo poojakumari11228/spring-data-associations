@@ -21,6 +21,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Post {
 
     @Id
@@ -38,12 +39,6 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     List<Comment> comments;
 
-//    public Post(long id, String title, String content, String author, User user) {
-//        this.id = id;
-//        this.title = title;
-//        this.content = content;
-//        this.author = author;
-//        this.user = user;
-//    }
+
 }
 

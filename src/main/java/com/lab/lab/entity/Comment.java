@@ -28,4 +28,6 @@ public class Comment {
     @JoinColumn(name = "post_id")
     Post post;
 
+    public Comment(Comment comment) {
+    }
 }
